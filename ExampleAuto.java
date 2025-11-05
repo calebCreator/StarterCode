@@ -34,13 +34,23 @@ public class ExampleAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException{
+
+        //Drivebase setup
+        /******************************/
         dt.init(hardwareMap);
         dt.setMotorDirection(dt.frontRight, Drivebase.FORWARD);
         dt.setMotorDirection(dt.frontLeft, Drivebase.REVERSE);
         dt.setMotorDirection(dt.backRight, Drivebase.FORWARD);
         dt.setMotorDirection(dt.backLeft, Drivebase.REVERSE);
+        dt.setBaseDimensions(160,130);
+        dt.setGearRatio(13.7);
+        
+
+        /* IMU */
+        initIMU(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
+
         telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        telemetry.update();        
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 

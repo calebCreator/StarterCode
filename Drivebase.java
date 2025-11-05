@@ -34,7 +34,7 @@ public class Drivebase {
     public DcMotor backRight;
     public DcMotor frontLeft;
     public DcMotor backLeft;
-    public IMU imu_IMU;
+    public IMU imu_IMU = null;
     private HardwareMap hardwareMap;
     
     private double speed = 0.75;
@@ -44,14 +44,11 @@ public class Drivebase {
     public static final String REVERSE = "reverse";
     
     // TICK CONSTANTS
-    public final double ticksPerMotorRev = 28;
-    public final double gearRatio = 15.2/1; // Number of turns of motor to one rotation of output
+    public double ticksPerMotorRev = 28;
+    public double gearRatio = 15.2/1; // Number of turns of motor to one rotation of output
     public final double ticksPerShaftRev = ticksPerMotorRev * gearRatio;
     public final double ticksPerShaftDeg = ticksPerShaftRev / 360;
-    public final double ticksPerArmMotorRev = 288;
-    public final double armGearRatio = 40/10; // Number of turns of motor to one rotation of output
-    public final double ticksPerArmShaftRev = ticksPerArmMotorRev * armGearRatio;
-    public final double ticksPerArmShaftDeg = ticksPerArmShaftRev / 360;
+    
     
     // WHEEL CONSTANTS
     public final double pi = 3.14159;
@@ -60,9 +57,9 @@ public class Drivebase {
     public final double mmOfMovementForDegreeOfMotorRoation = wheelCircumference/360;
     
     // ROTATION CONSTANTS
-    public final double distanceBetweenSameSideWheels = 130; //In MM
-    public final double distanceBetweenSides = 160;
-    public final double radius = Math.sqrt((distanceBetweenSameSideWheels*distanceBetweenSameSideWheels)+(distanceBetweenSides*distanceBetweenSides));
+    public double trackLength = 130; //In MM
+    public double trackWidth = 160;
+    public final double radius = Math.sqrt((trackLength*trackLength)+(trackWidth*trackWidth));
     public final double diameter = radius * 2;
     public final double circumference = diameter * pi;
     public final double MMPerDeg = circumference/360;
@@ -80,12 +77,6 @@ public class Drivebase {
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         
-        
-        /* IMU */
-        initIMU(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
-        
-        imu_IMU.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT)));
-        imu_IMU.resetYaw();
     }
     //Getter/Setter methods
     /*This function sets whether a motor is reversed or not
@@ -109,17 +100,33 @@ public class Drivebase {
         imu_IMU = hardwareMap.get(IMU.class, "imu");
         imu_IMU.initialize(new IMU.Parameters(orientation));
     }
+
+    public void setBaseDimensions(double trackWidth, double trackLength)
+    {
+        this.trackWidth = trackWidth;
+        this.trackLength = trackLength
+    }
     
     public void setSpeed(double speed)
     {
         this.speed = speed;
     }
     
-    public void setWheelDiameter(int wheelDiameter)
+    public void setWheelDiameter(double wheelDiameter)
     {
         this.wheelDiameter = wheelDiameter;
     }
+
+    public void setGearRatio(double gearRatio)
+    {
+        this.gearRatio = gearRatio;
+    }
     
+    public void setTicksPerMotorRev(double ticksPerMotorRev)
+    {
+        this.ticksPerMotorRev = ticksPerMotorRev;
+    }
+
     public void setWait(boolean wait){
         this.wait = wait;
     }
@@ -310,6 +317,10 @@ public class Drivebase {
      */
     public void compassTurn(int heading) throws InterruptedException
     {
+        if (imu_IMU == null){
+            return;
+        }
+
         int botHeading = (int)Math.toDegrees(-(imu_IMU.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS)));
         turn(-(heading-botHeading));
     }
