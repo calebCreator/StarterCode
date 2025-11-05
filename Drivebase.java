@@ -99,43 +99,9 @@ public class Drivebase {
         imu_IMU.initialize(new IMU.Parameters(orientation));
     }
 
-    /*
-    public void setBaseDimensions(double trackWidth, double trackLength)
-    {
-        this.trackWidth = trackWidth;
-        this.trackLength = trackLength
-    }*/
-
-    public void setTrackWidth(double trackWidth)
-    {
-        this.trackWidth = trackWidth;
-    }
-    
-    /*
-    public void setTrackLength(double trackLength)
-    {
-        this.trackLength = trackLength;
-    }*/
-    
-
     public void setSpeed(double speed)
     {
         this.speed = speed;
-    }
-    
-    public void setWheelDiameter(double wheelDiameter)
-    {
-        this.wheelDiameter = wheelDiameter;
-    }
-
-    public void setGearRatio(double gearRatio)
-    {
-        this.gearRatio = gearRatio;
-    }
-    
-    public void setTicksPerMotorRev(double ticksPerMotorRev)
-    {
-        this.ticksPerMotorRev = ticksPerMotorRev;
     }
 
     public void setWait(boolean wait){
