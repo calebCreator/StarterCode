@@ -28,7 +28,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
 
-public class ExampleAuto extends LinearOpMode {
+public class WheelDiameterTuner extends LinearOpMode {
     Drivebase dt = new Drivebase();
     
 
@@ -58,16 +58,15 @@ public class ExampleAuto extends LinearOpMode {
             dt.setSpeed(0.5);
             
             
-            telemetry.addData("Status", "Running");
+            telemetry.addData("Status", "Moving forward 100cm");
             telemetry.update();
 
-            dt.diagonal(135, 100);
-            dt.forward(50);
+            
+            dt.forward(100);
 
-            sleep(200);
+            //If the robot moves too far, increase the WHEEL_DIAMETER constant
+            //If the robot doesn't move far enough, increase the WHEEL_DIAMETER constant
 
-            dt.setSpeed(0.75);
-            dt.turn(90);
         }
     }
 }

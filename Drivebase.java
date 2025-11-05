@@ -44,22 +44,17 @@ public class Drivebase {
     public static final String REVERSE = "reverse";
     
     // TICK CONSTANTS
-    public double ticksPerMotorRev = 28;
-    public double gearRatio = 15.2/1; // Number of turns of motor to one rotation of output
-    public final double ticksPerShaftRev = ticksPerMotorRev * gearRatio;
+    public final double ticksPerShaftRev = Constants.TICKS_PER_MOTOR_REV * Constants.GEAR_RATIO;
     public final double ticksPerShaftDeg = ticksPerShaftRev / 360;
     
     
     // WHEEL CONSTANTS
     public final double pi = 3.14159;
-    public double wheelDiameter = 7.5; //In CM
-    public final double wheelCircumference = wheelDiameter*pi;
+    public final double wheelCircumference = Constants.WHEEL_DIAMETER * pi;
     public final double cmOfMovementForDegreeOfMotorRoation = wheelCircumference/360;
     
     // ROTATION CONSTANTS
-    public double trackLength = 13; //In CM
-    public double trackWidth = 16;
-    public final double radius = Math.sqrt((trackLength*trackLength)+(trackWidth*trackWidth));
+    public final double radius = Math.sqrt(2 * Math.pow(Constants.TRACK_WIDTH, 2));
     public final double diameter = radius * 2;
     public final double circumference = diameter * pi;
     public final double cmPerDeg = circumference/360;
@@ -72,10 +67,13 @@ public class Drivebase {
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         this.hardwareMap = hardwareMap;
         
+        //Set motor directions
+        setMotorDirection(frontRight, Constants.FR_DIRECTION);
+        setMotorDirection(frontLeft, Constants.FL_DIRECTION);
+        setMotorDirection(backRight, Constants.BR_DIRECTION);
+        setMotorDirection(backLeft, Constants.BL_DIRECTION);
+
         
-        /* SETTING SOME THINGS IN REVERSE */
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         
     }
     //Getter/Setter methods
@@ -101,12 +99,25 @@ public class Drivebase {
         imu_IMU.initialize(new IMU.Parameters(orientation));
     }
 
+    /*
     public void setBaseDimensions(double trackWidth, double trackLength)
     {
         this.trackWidth = trackWidth;
         this.trackLength = trackLength
+    }*/
+
+    public void setTrackWidth(double trackWidth)
+    {
+        this.trackWidth = trackWidth;
     }
     
+    /*
+    public void setTrackLength(double trackLength)
+    {
+        this.trackLength = trackLength;
+    }*/
+    
+
     public void setSpeed(double speed)
     {
         this.speed = speed;

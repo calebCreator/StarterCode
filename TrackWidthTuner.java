@@ -28,7 +28,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
 
-public class ExampleAuto extends LinearOpMode {
+public class TrackWidthTuner extends LinearOpMode {
     Drivebase dt = new Drivebase();
     
 
@@ -58,16 +58,15 @@ public class ExampleAuto extends LinearOpMode {
             dt.setSpeed(0.5);
             
             
-            telemetry.addData("Status", "Running");
+            telemetry.addData("Status", "Turning 1 rortaton");
             telemetry.update();
 
-            dt.diagonal(135, 100);
-            dt.forward(50);
+            
+            dt.turn(360);
 
-            sleep(200);
+            //If the robot rotates too far, decrease the TRACK_WIDTH constant
+            //If the robot doesn't rotate far enough, increase the TRACK_WIDTH constant
 
-            dt.setSpeed(0.75);
-            dt.turn(90);
         }
     }
 }
