@@ -42,7 +42,7 @@ public class ExampleAuto extends LinearOpMode {
         dt.setMotorDirection(dt.frontLeft, Drivebase.REVERSE);
         dt.setMotorDirection(dt.backRight, Drivebase.FORWARD);
         dt.setMotorDirection(dt.backLeft, Drivebase.REVERSE);
-        dt.setBaseDimensions(160,130);
+        dt.setBaseDimensions(16,13);
         dt.setGearRatio(13.7);
         
 
@@ -67,8 +67,8 @@ public class ExampleAuto extends LinearOpMode {
             telemetry.addData("Status", "Running");
             telemetry.update();
 
-            dt.diagonal(135, 1000);
-            dt.forward(500);
+            dt.diagonal(135, 100);
+            dt.forward(50);
 
             sleep(200);
 

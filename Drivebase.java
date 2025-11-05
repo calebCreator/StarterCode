@@ -52,17 +52,17 @@ public class Drivebase {
     
     // WHEEL CONSTANTS
     public final double pi = 3.14159;
-    public double wheelDiameter = 75;
+    public double wheelDiameter = 7.5; //In CM
     public final double wheelCircumference = wheelDiameter*pi;
-    public final double mmOfMovementForDegreeOfMotorRoation = wheelCircumference/360;
+    public final double cmOfMovementForDegreeOfMotorRoation = wheelCircumference/360;
     
     // ROTATION CONSTANTS
-    public double trackLength = 130; //In MM
-    public double trackWidth = 160;
+    public double trackLength = 13; //In CM
+    public double trackWidth = 16;
     public final double radius = Math.sqrt((trackLength*trackLength)+(trackWidth*trackWidth));
     public final double diameter = radius * 2;
     public final double circumference = diameter * pi;
-    public final double MMPerDeg = circumference/360;
+    public final double cmPerDeg = circumference/360;
     
     public void init(HardwareMap hardwareMap) {
         /* NAMING MOTORS AND SERVOS */
@@ -138,12 +138,12 @@ public class Drivebase {
     /* MOVEMENT FUNCTIONS */
     
     /*This function moves the robot forward
-     *@param mm The distance the robot will move forward in mm (forward +, backward -)
+     *@param cm The distance the robot will move forward in cm (forward +, backward -)
      *@param wait Whether or not the robot will wait until it is at the expected position before continuing with the program
      */
-    public void forward(int mm) throws InterruptedException
+    public void forward(int cm) throws InterruptedException
     {
-        double deg = (double)mm / mmOfMovementForDegreeOfMotorRoation;
+        double deg = (double)cm / cmOfMovementForDegreeOfMotorRoation;
         int[] positions = {0,0,0,0};
         positions[1] = turnMotor(frontRight, deg, (double)speed);
         positions[0] = turnMotor(frontLeft, deg, (double)speed);
@@ -155,12 +155,12 @@ public class Drivebase {
     }//End of function
     
     /*This function moves the robot horizontally side to side
-     *@param mm The distance the robot will move left/right in mm (right +, left -)
+     *@param cm The distance the robot will move left/right in cm (right +, left -)
      *@param wait Whether or not the robot will wait until it is at the expected position before continuing with the program
      */
-    public void strafe(int mm) throws InterruptedException
+    public void strafe(int cm) throws InterruptedException
     {
-        double deg = (double)mm / mmOfMovementForDegreeOfMotorRoation;
+        double deg = (double)cm / cmOfMovementForDegreeOfMotorRoation;
         int[] positions = {0,0,0,0};
         positions[1] = turnMotor(frontRight, -deg, (double)speed);
         positions[0] = turnMotor(frontLeft, deg, (double)speed);
@@ -180,8 +180,8 @@ public class Drivebase {
     public void turn(double deg) throws InterruptedException
     {
         double correctedDeg = deg * 1.37;
-        double mm = correctedDeg * MMPerDeg;
-        double degToMoveMM = mm /mmOfMovementForDegreeOfMotorRoation;
+        double mm = correctedDeg * cmPerDeg;
+        double degToMoveMM = cm /cmOfMovementForDegreeOfMotorRoation;
         int[] positions = {0,0,0,0};
         
         positions[1] = turnMotor(frontRight, (double)degToMoveMM, (double)speed);
@@ -200,9 +200,9 @@ public class Drivebase {
      *@param mm The distance the robot will move in mm (forward +, backward -)
      *@param wait Whether or not the robot will wait until it is at the expected position before continuing with the program
      */
-    public void diagonal(double angle, int mm) throws InterruptedException
+    public void diagonal(double angle, int cm) throws InterruptedException
     {
-        double deg = (double)mm / mmOfMovementForDegreeOfMotorRoation;
+        double deg = (double)cm / cmOfMovementForDegreeOfMotorRoation;
         double xCompenent = Math.cos(Math.toRadians(angle - 45)) * deg;
         double yCompenent = Math.sin(Math.toRadians(angle - 45)) * deg;
         
