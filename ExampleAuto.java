@@ -61,7 +61,10 @@ public class ExampleAuto extends LinearOpMode {
             
             telemetry.addData("Status", "Running");
             telemetry.update();
-
+            
+            dt.strafe(30);
+            
+            
             dt.diagonal(135, 30);
             dt.forward(50);
 
@@ -69,6 +72,8 @@ public class ExampleAuto extends LinearOpMode {
 
             dt.setSpeed(0.75);
             dt.turn(90);
+            
+            sleep(1000);
         }
     }
 }

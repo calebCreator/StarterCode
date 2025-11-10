@@ -180,8 +180,8 @@ public class Drivebase {
     public void diagonal(double angle, int cm) throws InterruptedException
     {
         double deg = (double)cm / cmOfMovementForDegreeOfMotorRoation;
-        double xCompenent = Math.cos(Math.toRadians(angle - 45)) * deg;
-        double yCompenent = Math.sin(Math.toRadians(angle - 45)) * deg;
+        double xCompenent = Math.cos(Math.toRadians(-angle +135)) * deg;
+        double yCompenent = Math.sin(Math.toRadians(-angle + 135)) * deg;
         
         
         int[] positions = {0,0,0,0}; //Need to add in the other motor values
