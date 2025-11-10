@@ -25,6 +25,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 @Autonomous
 
@@ -41,7 +42,7 @@ public class TrackWidthTuner extends LinearOpMode {
         
 
         /* IMU */
-        initIMU(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
+        dt.initIMU(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();        
@@ -62,7 +63,9 @@ public class TrackWidthTuner extends LinearOpMode {
             telemetry.update();
 
             
-            dt.turn(360);
+            dt.turn(360 * 5);
+            
+            sleep(1000);
 
             //If the robot rotates too far, decrease the TRACK_WIDTH constant
             //If the robot doesn't rotate far enough, increase the TRACK_WIDTH constant

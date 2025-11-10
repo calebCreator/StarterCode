@@ -19,12 +19,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 @Autonomous
 
@@ -41,7 +43,7 @@ public class WheelDiameterTuner extends LinearOpMode {
         
 
         /* IMU */
-        initIMU(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
+        dt.initIMU(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();        
@@ -63,6 +65,8 @@ public class WheelDiameterTuner extends LinearOpMode {
 
             
             dt.forward(100);
+            
+            sleep(1000);
 
             //If the robot moves too far, increase the WHEEL_DIAMETER constant
             //If the robot doesn't move far enough, increase the WHEEL_DIAMETER constant

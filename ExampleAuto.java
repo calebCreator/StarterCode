@@ -25,6 +25,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 @Autonomous
 
@@ -41,7 +42,7 @@ public class ExampleAuto extends LinearOpMode {
         
 
         /* IMU */
-        initIMU(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
+        dt.initIMU(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();        
@@ -61,7 +62,7 @@ public class ExampleAuto extends LinearOpMode {
             telemetry.addData("Status", "Running");
             telemetry.update();
 
-            dt.diagonal(135, 100);
+            dt.diagonal(135, 30);
             dt.forward(50);
 
             sleep(200);

@@ -157,7 +157,7 @@ public class Drivebase {
     public void turn(double deg) throws InterruptedException
     {
         double correctedDeg = deg * 1.37;
-        double mm = correctedDeg * cmPerDeg;
+        double cm = correctedDeg * cmPerDeg;
         double degToMoveMM = cm /cmOfMovementForDegreeOfMotorRoation;
         int[] positions = {0,0,0,0};
         
