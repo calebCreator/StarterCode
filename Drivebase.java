@@ -39,6 +39,7 @@ public class Drivebase {
     
     private double speed = 0.75;
     private boolean wait = true;
+    private int strictness = 25;
     
     public static final String FORWARD = "forward";
     public static final String REVERSE = "reverse";
@@ -107,6 +108,11 @@ public class Drivebase {
     public void setWait(boolean wait){
         this.wait = wait;
     }
+
+    public void setStrictness(int strictness)
+    {
+        this.strictness = strictness;
+    }
     
     
     
@@ -127,7 +133,7 @@ public class Drivebase {
         positions[3] = turnMotor(backRight, deg, (double)speed);
         positions[2] = turnMotor(backLeft, deg, (double)speed);
         if(wait){
-            waitForMove(false,20,positions);
+            waitForMove(false,positions);
         }//End of if
     }//End of function
     
@@ -146,7 +152,7 @@ public class Drivebase {
         
         if(wait)
         {
-            waitForMove(false,20,positions);
+            waitForMove(false,positions);
         }
     }
     
@@ -168,7 +174,7 @@ public class Drivebase {
         
         if(wait)
         {
-            waitForMove(false,20,positions);
+            waitForMove(false,positions);
         }
     }
     // STRAFE LEFT UP
@@ -192,7 +198,7 @@ public class Drivebase {
         
         if(wait)
         {
-        waitForMove(false,20,positions);
+        waitForMove(false,positions);
         }
     }
     public int roundTo(int place, int value)
@@ -206,7 +212,7 @@ public class Drivebase {
      *@param strictness The maximum difference in ticks that the function will say is equal
      *@param motorPositions An array that holds the positions that the motors should be at
      */
-    public void waitForMove(boolean strict, int strictness, int[] motorPositions) throws InterruptedException
+    public void waitForMove(boolean strict, int[] motorPositions) throws InterruptedException
     {
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
